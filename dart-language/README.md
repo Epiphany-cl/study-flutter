@@ -18,6 +18,13 @@
 12. [Abstract 抽象类](#12-abstract-抽象类)
 13. [Async 异步编程](#13-async-异步编程)
 14. [异常处理](#14-异常处理)
+15. [Extension 扩展方法](#15-extension-扩展方法)
+16. [Extension Type 扩展类型](#16-extension-type-扩展类型)
+17. [Factory 工厂构造函数](#17-factory-工厂构造函数)
+18. [Operator 操作符重载](#18-operator-操作符重载)
+19. [Typedef 类型别名](#19-typedef-类型别名)
+20. [Covariant 协变](#20-covariant-协变)
+21. [External 外部函数](#21-external-外部函数)
 
 ---
 
@@ -435,16 +442,6 @@ void main() async {
 }
 ```
 
-### 回调方式（不推荐）
-
-```dart
-Future<void> printWithDelay2(String message) {
-  return Future.delayed(Duration(seconds: 1)).then((_) {
-    print(message);
-  });
-}
-```
-
 ### Stream 流式数据
 
 ```dart
@@ -452,14 +449,6 @@ Stream<String> report(Spacecraft craft, Iterable<String> objects) async* {
   for (final object in objects) {
     await Future.delayed(Duration(seconds: 1));
     yield '${craft.name} flies by $object';
-  }
-}
-
-void main() async {
-  final stream = report(spacecraft, ['Moon', 'Mars', 'Jupiter']);
-  
-  await for (final message in stream) {
-    print(message);
   }
 }
 ```
@@ -472,134 +461,169 @@ void main() async {
 | `async*` | 异步生成器，返回 `Stream` |
 | `yield` | 在 Stream 中产生值 |
 
-**与 Java 对比：**
-```java
-// Java CompletableFuture
-CompletableFuture.delayedFuture(1, TimeUnit.SECONDS)
-    .thenAccept(v -> System.out.println("Hello"));
-
-// Java 19+ Virtual Threads
-Thread.startVirtualThread(() -> {
-    Thread.sleep(1000);
-    System.out.println("Hello");
-});
-```
-
 ---
 
 ## 14. 异常处理
 
-### 抛出异常
+### 基本用法
 
 ```dart
-throw Exception('出错了～');
-throw "出错了～";  // Dart 允许抛出任意对象
-```
-
-### 捕获异常
-
-```dart
-// 基本 try-catch
-try {
-  var result = 10 ~/ 0;
-} catch (e) {
-  print('捕获到异常：$e');
-}
-
-// 捕获特定异常
 try {
   var result = 10 ~/ 0;
 } on IntegerDivisionByZeroException catch (e) {
   print('除以零错误：$e');
-} catch (e) {
-  print('其他异常：$e');
-}
-
-// 获取堆栈信息
-try {
-  throw Exception('错误');
 } catch (e, stackTrace) {
-  print('异常：$e');
+  print('其他异常：$e');
   print('堆栈：$stackTrace');
-}
-
-// finally
-try {
-  // ...
-} catch (e) {
-  // ...
 } finally {
   print('总是执行');
 }
-
-// 重新抛出
-try {
-  // ...
-} catch (e) {
-  rethrow;  // 重新抛出
-}
 ```
 
-### 与 Java 对比
-
-| 特性 | Java | Dart |
-|------|------|------|
-| Checked Exception | ✅ 有 | ❌ 无 |
-| 必须声明 throws | ✅ Checked 异常需要 | ❌ 不需要 |
-| 抛出任意对象 | ❌ 只能 Throwable | ✅ 可以 |
-| 获取堆栈 | `e.getStackTrace()` | `catch (e, stack)` |
-| 重新抛出 | `throw` | `rethrow` |
-
-**重要：Dart 所有异常都是 unchecked，不需要显式声明 throws**
+**要点：**
+- Dart 所有异常都是 **Unchecked Exception**，不需要显式声明 `throws`。
+- 允许抛出任何对象（不仅仅是 Exception 类型）。
 
 ---
 
-## 快速参考
+## 15. Extension 扩展方法
 
-### 类型系统
-
-```dart
-var name = 'Bob';      // 类型推断
-String name = 'Bob';   // 显式类型
-const pi = 3.14;       // 编译时常量
-final now = DateTime.now();  // 运行时常量
-String? nullable;      // 可空类型
-int value = nullable ?? 0;   // 空值合并
-```
-
-### 集合
+用于给现有的类增加新功能，而无需继承。
 
 ```dart
-List<String> list = ['a', 'b'];
-Map<String, int> map = {'a': 1, 'b': 2};
-Set<int> set = {1, 2, 3};
+extension StringExtension on String {
+  bool get isEmail =>
+      RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(this);
+}
+
+void main() {
+  print('alice@example.com'.isEmail); // true
+}
 ```
 
-### 操作符
+**与 Java 对比：** Java 通常需要写一个 `StringUtils` 工具类，而 Dart 可以让代码看起来像是类原生自带的方法。
+
+---
+
+## 16. Extension Type 扩展类型
+
+Dart 3.2+ 引入。提供一种“零成本”的包装器，给现有类型套个“马甲”。
 
 ```dart
-??    // 空值合并
-?.    // 条件访问
-!     // 空断言
-..    // 级联调用
-is    // 类型测试
-as    // 类型转换
+extension type PhoneString(String phone) {
+  bool isPhoneNumber() => RegExp(r'^1[3-9]\d{9}$').hasMatch(phone);
+}
+
+void main() {
+  var phone = PhoneString('13800000000');
+  print(phone.isPhoneNumber()); // true
+  // phone.substring(0); // 错误！原 String 方法默认被隐藏
+}
 ```
+
+**与 Java 对比：** 类似于 Java 的包装类，但**没有运行时开销**（编译后直接替换为底层类型），且能实现接口隐藏。
+
+---
+
+## 17. Factory 工厂构造函数
+
+用于创建对象的特殊构造函数，可以手动控制返回的实例（如单例、缓存实例）。
+
+```dart
+class Logger {
+  static final Map<String, Logger> _cache = {};
+  factory Logger(String name) {
+    return _cache.putIfAbsent(name, () => Logger._internal(name));
+  }
+  Logger._internal(this.name);
+  final String name;
+}
+```
+
+**与 Java 对比：** Java 需要手动实现静态方法 `getInstance()`，而 Dart 直接集成在构造函数语法中。
+
+---
+
+## 18. Operator 操作符重载
+
+允许类重新定义 `+`、`-`、`==`、`[]` 等操作符的行为。
+
+```dart
+class Vector {
+  final int x, y;
+  Vector(this.x, this.y);
+
+  Vector operator +(Vector v) => Vector(x + v.x, y + v.y);
+}
+```
+
+**与 Java 对比：** Java 不支持操作符重载（除了 String 的 +），Dart 类似于 C++ 的这一特性，在处理数学运算或集合访问时更简洁。
+
+---
+
+## 19. Typedef 类型别名
+
+为复杂的函数签名起一个简单的名字。
+
+```dart
+typedef LoginCallback = void Function(String username, bool success);
+
+void login(LoginCallback callback) {
+  callback("Alice", true);
+}
+```
+
+---
+
+## 20. Covariant 协变
+
+允许子类在重写方法时，将参数类型修改为父类参数类型的**子类**。
+
+```dart
+class Food {}
+class CatFood extends Food {}
+
+class Animal {
+  void eat(covariant Food food) {}
+}
+
+class Cat extends Animal {
+  @override
+  void eat(CatFood food) {} // 合法
+}
+```
+
+**与 Java 对比：** Java 的方法重写要求参数类型必须完全一致。Dart 的 `covariant` 提供了一种灵活的类型安全机制来模拟类似“重载”的行为。
+
+---
+
+## 21. External 外部函数
+
+用于声明在其他地方（如 C/C++）实现的函数，常用于 FFI 调用。
+
+```dart
+import 'dart:ffi';
+
+@Native<Void Function()>()
+external void hello_world();
+```
+
+---
+
+## 快速参考表
+
+| 特性 | Java 对应/备注 | 关键字 |
+| :--- | :--- | :--- |
+| **异步** | CompletableFuture | `async`, `await` |
+| **混入** | 带默认方法的接口 (多重继承替代) | `mixin`, `with` |
+| **扩展** | StringUtils 工具类 | `extension` |
+| **工厂** | 静态 getInstance() 方法 | `factory` |
+| **零成本包装** | Valhalla (未来的 Java 特性) | `extension type` |
+| **类型别名** | 函数式接口 | `typedef` |
+| **操作符** | 不支持 | `operator` |
 
 ---
 
 ## 总结
 
-Dart 与 Java 的相似之处：
-- ✅ 类似的语法结构
-- ✅ 面向对象编程
-- ✅ 强类型系统
-- ✅ 异常处理机制
-
-Dart 的独特之处：
-- 🎯 顶层函数（不需要类包裹）
-- 🎯 命名构造函数
-- 🎯 Mixin 混入
-- 🎯 所有异常都是 unchecked
-- 🎯 async/await 原生支持
-- 🎯 不需要 `new` 关键字
+Dart 是一门**为 UI 而生**的语言，它融合了 Java 的强类型、JavaScript 的异步友好以及 C++ 的某些灵活特性（如操作符重载）。对于 Java 开发者来说，理解 **“一切皆对象”** 和 **“零成本抽象（Extension Types）”** 是掌握 Dart 高级用法的关键。

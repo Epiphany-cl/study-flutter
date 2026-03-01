@@ -16,7 +16,7 @@ brew install dart
 
 ## Dart 语言学习
 
-文档教程
+### 文档教程
 
 - [Dart 官方文档 - dart.dev](https://dart.dev/language)
 - [Dart 中文文档 - dart.cn](https://dart.cn/language)
@@ -24,7 +24,7 @@ brew install dart
 - [Dart 语言教程 - dart.dev](https://dart.dev/learn/tutorial)
 - [Dart 备忘清单 - Quick Reference](https://quickref.cn/docs/dart.html)
 
-视频教程
+### 视频教程
 
 - [Welcome to the Dart and Flutter tutorial! - Youtube](https://www.youtube.com/watch?v=2kjp9yAKpT4)
 - [What is Dart? - Youtube](https://www.youtube.com/watch?v=ulg4bjQQJi0)
@@ -60,28 +60,26 @@ brew install dart
 
 Dart 一共有 67 个关键字。
 
-|           |             |               |          |
-| --------- | ----------- | ------------- | -------- |
-| abstract  | as          | assert        | async    |
-| await     | base        | break         | case     |
-| catch     | class       | const         | continue |
-| covariant | default     | deferred      | do       |
-| dynamic   | else        | enum          | export   |
-| extends   | extension   | external      | factory  |
-| false     | final (var) | final (class) | finally  |
-| for       | Function    | get           | hide     |
-| if        | implements  | import        | in       |
-| interface | is          | late          | library  |
-| mixin     | new         | null          | of       |
-| on        | operator    | part          | required |
-| rethrow   | return      | sealed        | set      |
-| show      | static      | super         | switch   |
-| sync      | this        | throw         | true     |
-| try       | type        | typedef       | var      |
-| void      | when        | with          | while    |
-| yield     |             |               |          |
+|           |           |            |          |          |
+| :-------- | :-------- | :--------- | :------- | :------- |
+| abstract  | as        | assert     | async    | await    |
+| base      | break     | case       | catch    | class    |
+| const     | continue  | covariant  | default  | deferred |
+| do        | dynamic   | else       | enum     | export   |
+| extends   | extension | external   | factory  | false    |
+| final     | finally   | for        | Function | get      |
+| hide      | if        | implements | import   | in       |
+| interface | is        | late       | library  | mixin    |
+| new       | null      | of         | on       | operator |
+| part      | required  | rethrow    | return   | sealed   |
+| set       | show      | static     | super    | switch   |
+| sync      | this      | throw      | true     | try      |
+| type      | typedef   | var        | void     | when     |
+| with      | while     | yield      |          |          |
 
-- 变量声明与基础类型
+#### 关键字分类说明
+
+- **变量声明与基础类型**
   - `var`：类型推断
   - `final`：运行时常量
   - `const`：编译时常量
@@ -92,7 +90,7 @@ Dart 一共有 67 个关键字。
   - `true`：布尔值，真
   - `false`：布尔值，假
 
-- 控制流
+- **控制流**
   - `if`：条件判断
   - `else`：条件分支的否定条件
   - `for`：普通循环
@@ -107,7 +105,7 @@ Dart 一共有 67 个关键字。
   - `when`：模式匹配中的守卫条件（常配合 `switch` 或 `catch` 使用）
   - `return`：结束函数执行并返回值
 
-- 错误处理与调试
+- **错误处理与调试**
   - `try`：定义可能抛出异常的代码块
   - `catch`：捕获异常
   - `finally`：无论是否发生异常，最后都会执行的代码块
@@ -116,7 +114,7 @@ Dart 一共有 67 个关键字。
   - `on`：针对特定类型的异常进行捕获（常与 `catch` 结合）
   - `assert`：断言，仅在调试模式下生效，条件为假时抛出异常，通常用于内部检查
 
-- 类与面向对象（基础）
+- **类与面向对象（基础）**
   - `class`：声明一个类
   - `enum`：声明枚举类型
   - `extends`：继承一个父类
@@ -134,7 +132,7 @@ Dart 一共有 67 个关键字。
   - `operator`：操作符重载
   - `covariant`：协变，允许子类重写方法时收窄参数的类型
 
-- 类修饰符
+- **类修饰符**
   - `abstract`：声明抽象类（不能被实例化）或抽象方法
   - `base`：基类修饰符，强制类只能被继承，不能被实现（implements）
   - `interface`：接口修饰符，强制类只能被实现，不能被继承
@@ -142,16 +140,16 @@ Dart 一共有 67 个关键字。
   - `sealed`：密封类，限制所有子类必须定义在同一个库文件中（支持 switch
     完备性检查）
 
-  | 修饰符    | 可 extends | 可 implements | 可实例化 | 子类位置限制 |
-  | :-------- | :--------: | :-----------: | :------: | :----------- |
-  | (默认)    |     ✅     |      ✅       |    ✅    | 无           |
-  | abstract  |     ✅     |      ✅       |    ❌    | 无           |
-  | base      |     ✅     |      ❌       |    ✅    | 无           |
-  | interface |     ❌     |      ✅       |    ✅    | 无           |
-  | final     |     ❌     |      ❌       |    ✅    | 无           |
-  | sealed    |     ✅     |      ❌       |    ❌    | 同库文件     |
+| 修饰符    | 可 extends | 可 implements | 可实例化 | 子类位置限制 |
+| :-------- | :--------: | :-----------: | :------: | :----------- |
+| (默认)    |     ✅     |      ✅       |    ✅    | 无           |
+| abstract  |     ✅     |      ✅       |    ❌    | 无           |
+| base      |     ✅     |      ❌       |    ✅    | 无           |
+| interface |     ❌     |      ✅       |    ✅    | 无           |
+| final     |     ❌     |      ❌       |    ✅    | 无           |
+| sealed    |     ✅     |      ❌       |    ❌    | 同库文件     |
 
-- 函数与异步编程
+- **函数与异步编程**
   - `Function`：表示所有函数类型的基类,函数也是对象
   - `async`：标记异步函数，允许在函数体内使用 `await`
   - `await`：等待异步操作（Future）完成
@@ -160,7 +158,7 @@ Dart 一共有 67 个关键字。
   - `external`：声明一个由外部（如 C/C++ 底层或宿主环境）实现的方法
   - `required`：标记命名参数为必传参数，编译时检查
 
-  - 库、模块与可见性
+- **库、模块与可见性**
   - `import`：导入其他库
   - `export`：导出其他库
   - `library`：指定当前文件的库名称
@@ -168,11 +166,11 @@ Dart 一共有 67 个关键字。
   - `of`：声明属于哪个主库（常与 `part` 结合：`part of`）
   - `show`：选择性导入或导出库中的特定部分
   - `hide`：隐藏库中的特定部分不被导入或导出
-  - `deferred`：延迟加载库（常配合 `as` 使用，需要时使用 .loadLibrary()
+  - `deferred`：延迟加载库（常配合 `as` 使用，需要时使用 `.loadLibrary()`
     才加载代码），减小首屏体积 / 提升启动速度
 
-- 类型测试与定义
+- **类型测试与定义**
   - `as`：类型转换（强制向下转型），或用于库导入时的别名（`import...as`）
   - `is`：类型判断（检查对象是否属于某类型）
   - `typedef`：定义类型别名（常用于函数签名或复杂泛型）
-  - `type`：类型声明关键字，与 extension 结合使用，定义扩展类型
+  - `type`：类型声明关键字，与 `extension type` 组合使用，定义扩展类型
