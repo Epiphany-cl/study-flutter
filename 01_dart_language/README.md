@@ -37,11 +37,13 @@ void main() {
 ```
 
 **要点：**
+
 - `main()` 函数是 Dart 程序的入口
 - 不需要 `public static` 修饰符
 - 不需要分号结尾（但建议加上）
 
 **与 Java 对比：**
+
 ```java
 // Java
 public class Main {
@@ -74,12 +76,14 @@ final area = pi * 2 * 2;  // 运行时常量，赋值后不能改变
 ```
 
 **区别：**
-| 关键字 | 赋值时机 | 表达式要求 |
-|--------|----------|------------|
-| `const` | 编译时 | 必须是编译时常量 |
-| `final` | 运行时 | 可以是运行时表达式 |
+
+| 关键字  | 赋值时机 | 表达式要求         |
+| ------- | -------- | ------------------ |
+| `const` | 编译时   | 必须是编译时常量   |
+| `final` | 运行时   | 可以是运行时表达式 |
 
 **与 Java 对比：**
+
 ```java
 // Java
 final int age = 18;           // 类似 Dart 的 final
@@ -160,6 +164,7 @@ void main() {
 ```
 
 **与 Java 对比：**
+
 ```java
 // Java 函数必须在类里面
 public class Utils {
@@ -195,7 +200,7 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 
 // 路径导入
-import 'path/to/my_other_file.dart';
+import '../dart-language/path/to/my_other_file.dart';
 ```
 
 ---
@@ -244,12 +249,12 @@ var voyager3 = Spacecraft.unlaunched('Voyager III');
 
 **与 Java 对比：**
 
-| 特性 | Java | Dart |
-|------|------|------|
-| 实例化 | `new ClassName()` | `ClassName()` |
-| 构造函数 | 通过参数区分重载 | 通过命名构造函数 |
+| 特性       | Java                     | Dart                            |
+| ---------- | ------------------------ | ------------------------------- |
+| 实例化     | `new ClassName()`        | `ClassName()`                   |
+| 构造函数   | 通过参数区分重载         | 通过命名构造函数                |
 | 访问修饰符 | public/private/protected | 默认 public，_ 开头表示 private |
-| this | `this.name = name` | `this.name` 参数语法糖 |
+| this       | `this.name = name`       | `this.name` 参数语法糖          |
 
 ---
 
@@ -294,6 +299,7 @@ if (!yourPlanet.isGiant) {
 ```
 
 **与 Java 对比：**
+
 ```java
 // Java 5+ 也支持枚举，但语法不同
 enum Planet {
@@ -322,6 +328,7 @@ class Orbiter extends Spacecraft {
 ```
 
 **要点：**
+
 - Dart 是**单继承**，与 Java 相同
 - 使用 `extends` 关键字
 - 使用 `super` 调用父类构造函数
@@ -348,11 +355,13 @@ void main() {
 ```
 
 **要点：**
+
 - Mixin 允许在多个类之间共享代码
 - 不使用继承，而是"混入"行为
 - 多个 Mixin 有相同方法时，**最后一个生效**
 
 **与 Java 对比：**
+
 ```java
 // Java 类似的是默认方法的接口
 interface A {
@@ -390,6 +399,7 @@ class Dog implements Animal {
 ```
 
 **要点：**
+
 - 使用 `implements` 实现接口
 - 必须实现接口中的所有方法
 - 可以实现多个接口：`class Dog implements Animal, Pet {}`
@@ -454,12 +464,13 @@ Stream<String> report(Spacecraft craft, Iterable<String> objects) async* {
 ```
 
 **关键字：**
-| 关键字 | 作用 |
-|--------|------|
-| `async` | 标记异步函数，返回 `Future` |
-| `await` | 等待异步操作完成 |
-| `async*` | 异步生成器，返回 `Stream` |
-| `yield` | 在 Stream 中产生值 |
+
+| 关键字   | 作用                        |
+| -------- | --------------------------- |
+| `async`  | 标记异步函数，返回 `Future` |
+| `await`  | 等待异步操作完成            |
+| `async*` | 异步生成器，返回 `Stream`   |
+| `yield`  | 在 Stream 中产生值          |
 
 ---
 
@@ -481,6 +492,7 @@ try {
 ```
 
 **要点：**
+
 - Dart 所有异常都是 **Unchecked Exception**，不需要显式声明 `throws`。
 - 允许抛出任何对象（不仅仅是 Exception 类型）。
 
@@ -501,7 +513,8 @@ void main() {
 }
 ```
 
-**与 Java 对比：** Java 通常需要写一个 `StringUtils` 工具类，而 Dart 可以让代码看起来像是类原生自带的方法。
+**与 Java 对比：** Java 通常需要写一个 `StringUtils` 工具类，而 Dart
+可以让代码看起来像是类原生自带的方法。
 
 ---
 
@@ -521,7 +534,8 @@ void main() {
 }
 ```
 
-**与 Java 对比：** 类似于 Java 的包装类，但**没有运行时开销**（编译后直接替换为底层类型），且能实现接口隐藏。
+**与 Java 对比：** 类似于 Java
+的包装类，但**没有运行时开销**（编译后直接替换为底层类型），且能实现接口隐藏。
 
 ---
 
@@ -540,7 +554,8 @@ class Logger {
 }
 ```
 
-**与 Java 对比：** Java 需要手动实现静态方法 `getInstance()`，而 Dart 直接集成在构造函数语法中。
+**与 Java 对比：** Java 需要手动实现静态方法 `getInstance()`，而 Dart
+直接集成在构造函数语法中。
 
 ---
 
@@ -557,7 +572,8 @@ class Vector {
 }
 ```
 
-**与 Java 对比：** Java 不支持操作符重载（除了 String 的 +），Dart 类似于 C++ 的这一特性，在处理数学运算或集合访问时更简洁。
+**与 Java 对比：** Java 不支持操作符重载（除了 String 的 +），Dart 类似于 C++
+的这一特性，在处理数学运算或集合访问时更简洁。
 
 ---
 
@@ -593,7 +609,8 @@ class Cat extends Animal {
 }
 ```
 
-**与 Java 对比：** Java 的方法重写要求参数类型必须完全一致。Dart 的 `covariant` 提供了一种灵活的类型安全机制来模拟类似“重载”的行为。
+**与 Java 对比：** Java 的方法重写要求参数类型必须完全一致。Dart 的 `covariant`
+提供了一种灵活的类型安全机制来模拟类似“重载”的行为。
 
 ---
 
@@ -612,18 +629,21 @@ external void hello_world();
 
 ## 快速参考表
 
-| 特性 | Java 对应/备注 | 关键字 |
-| :--- | :--- | :--- |
-| **异步** | CompletableFuture | `async`, `await` |
-| **混入** | 带默认方法的接口 (多重继承替代) | `mixin`, `with` |
-| **扩展** | StringUtils 工具类 | `extension` |
-| **工厂** | 静态 getInstance() 方法 | `factory` |
-| **零成本包装** | Valhalla (未来的 Java 特性) | `extension type` |
-| **类型别名** | 函数式接口 | `typedef` |
-| **操作符** | 不支持 | `operator` |
+| 特性           | Java 对应/备注                  | 关键字           |
+| :------------- | :------------------------------ | :--------------- |
+| **异步**       | CompletableFuture               | `async`, `await` |
+| **混入**       | 带默认方法的接口 (多重继承替代) | `mixin`, `with`  |
+| **扩展**       | StringUtils 工具类              | `extension`      |
+| **工厂**       | 静态 getInstance() 方法         | `factory`        |
+| **零成本包装** | Valhalla (未来的 Java 特性)     | `extension type` |
+| **类型别名**   | 函数式接口                      | `typedef`        |
+| **操作符**     | 不支持                          | `operator`       |
 
 ---
 
 ## 总结
 
-Dart 是一门**为 UI 而生**的语言，它融合了 Java 的强类型、JavaScript 的异步友好以及 C++ 的某些灵活特性（如操作符重载）。对于 Java 开发者来说，理解 **“一切皆对象”** 和 **“零成本抽象（Extension Types）”** 是掌握 Dart 高级用法的关键。
+Dart 是一门**为 UI 而生**的语言，它融合了 Java 的强类型、JavaScript
+的异步友好以及 C++ 的某些灵活特性（如操作符重载）。对于 Java 开发者来说，理解
+**“一切皆对象”** 和 **“零成本抽象（Extension Types）”** 是掌握 Dart
+高级用法的关键。
