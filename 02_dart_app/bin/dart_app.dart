@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dart_app/llm_util.dart';
 import 'package:dart_app/rainbow_string.dart';
 
 void main() async {
+  // 解决 Windows CMD 中文乱码问题
+  if (Platform.isWindows) {
+    stdout.encoding = utf8;
+  }
+
   // 对话历史
   final List<Map<String, String>> history = [
     {
@@ -41,7 +47,8 @@ void main() async {
 
   while (true) {
     stdout.write(': ');
-    final String? input = stdin.readLineSync();
+    // 显式指定使用 utf8 编码读取输入
+    final String? input = stdin.readLineSync(encoding: utf8);
 
     if (input == null || input.trim().isEmpty) continue;
 
