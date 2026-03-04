@@ -1,0 +1,50 @@
+name: Dart Build & Release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  build:
+    # 使用矩阵策略，同时启动 3 台不同操作系统的虚拟机
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            output-name: longger-ai-linux
+          - os: macos-latest
+            output-name: longger-ai-macos
+          - os: windows-latest
+            output-name: longger-ai-windows.exe
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: 02_dart_app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Create build directory
+        run: mkdir -p build
+
+      - name: Compile Executable
+        run: dart compile exe bin/dart_app.dart -o build/${{ matrix.output-name }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.output-name }}
+          path: 02_dart_app/build/${{ matrix.output-name }}

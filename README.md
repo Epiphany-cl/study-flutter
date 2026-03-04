@@ -218,10 +218,10 @@ dart run dart_app
 
 ```bash
 # 编译项目
-dart compile
+dart compile ...
 
 # 管理依赖
-dart pub
+dart pub ...
 
 # 格式化代码
 dart format
