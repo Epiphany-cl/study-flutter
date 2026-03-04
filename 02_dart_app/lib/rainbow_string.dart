@@ -3,6 +3,8 @@ import 'package:characters/characters.dart';
 
 ///  RainbowString 类用于为字符串添加 ANSI 颜色代码，实现终端输出的彩色显示。
 class RainbowString {
+  // TODO：一个字一个字的转换，循环，可实现流式输出 String toRainbowNaxt(String char){}
+
   /// 将字符串转换为彩虹字符串，每个字符根据其位置分配不同的颜色。
   ///
   /// [str] 要转换的字符串。
@@ -15,8 +17,6 @@ class RainbowString {
       return addColor(chars[i], wavelengthToRGB(ratio));
     }).join();
   }
-
-  // TODO：一个字一个字的转换，来回循环，可实现流式输出
 
   /// 为字符串添加 ANSI 颜色代码，实现终端输出的彩色显示。
   ///
@@ -111,7 +111,14 @@ class RGB {
 }
 
 void main(List<String> args) {
-  print(
-    RainbowString.toRainbow('To be, or not to be, that is the question 👉🏻'),
-  );
+  const text = '''
+生存还是毁灭，这是一个值得考虑的问题；
+默默忍受命运暴虐的毒箭，
+或是挺身反抗人世的苦难，
+通过斗争把它们扫清，这两种行为，哪一种更高贵？
+死了；睡着了；什么都完了；
+要是在这一种睡眠之中，我们心头的创痛，
+以及其他无数血肉之躯所不能避免的打击，都可以从此消失，
+那正是我们求之不得的解脱。''';
+  print(RainbowString.toRainbow(text));
 }
