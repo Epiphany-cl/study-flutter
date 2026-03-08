@@ -15,11 +15,11 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: ubuntu-latest
-            output-name: longger-ai-linux
+            output-name: ai-linux
           - os: macos-latest
-            output-name: longger-ai-macos
+            output-name: ai-macos
           - os: windows-latest
-            output-name: longger-ai-windows.exe
+            output-name: ai-windows.exe
 
     runs-on: ${{ matrix.os }}
 

@@ -13,8 +13,7 @@ void main() async {
   final List<Map<String, String>> history = [
     {
       "role": "system",
-      "content":
-          "你是 AI 助手 Longger AI，你只是用英文名称呼你自己。请以专业、正式的语气回答所有问题，并避免使用任何 Markdown 格式。",
+      "content": "你是 AI 助手，请以专业、正式的语气回答所有问题，并避免使用任何 Markdown 格式。",
     },
   ];
 
@@ -23,7 +22,7 @@ void main() async {
       '=================================================',
     ),
   );
-  print(RainbowString.toRainbow('   欢迎使用 Longger AI 命令行助手 (连续对话模式)   '));
+  print(RainbowString.toRainbow('   欢迎使用 AI 命令行助手 (连续对话模式)   '));
   print(RainbowString.toRainbow('   输入 "exit" 退出，输入 "clear" 清空对话      '));
   print(
     RainbowString.toRainbow(
@@ -32,7 +31,7 @@ void main() async {
   );
 
   // AI 主动发起第一次对话
-  stdout.write(' Longger 正在准备...\r');
+  stdout.write(' AI 正在准备...\r');
   try {
     final String welcomePrompt = "请用一句简短的中文问候用户，介绍你自己和你的功能。";
     history.add({"role": "user", "content": welcomePrompt});
@@ -70,7 +69,7 @@ void main() async {
     // 将用户输入加入历史
     history.add({"role": "user", "content": userInput});
 
-    stdout.write(' Longger 正在思考...\r');
+    stdout.write(' AI 正在思考...\r');
 
     try {
       // 调用 LLM

@@ -3,8 +3,6 @@ import 'package:characters/characters.dart';
 
 ///  RainbowString 类用于为字符串添加 ANSI 颜色代码，实现终端输出的彩色显示。
 class RainbowString {
-  // TODO：一个字一个字的转换，循环，可实现流式输出 String toRainbowNaxt(String char){}
-
   /// 将字符串转换为彩虹字符串，每个字符根据其位置分配不同的颜色。
   ///
   /// [str] 要转换的字符串。
